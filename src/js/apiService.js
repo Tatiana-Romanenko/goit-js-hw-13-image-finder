@@ -8,12 +8,10 @@ export default class NewsApiService {
 
         return fetch(`https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=22986442-fd6d86129fbc450d958a17aa8`)
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            .then(({ hits }) => {
                 this.incrementPage();
-
-                return data.hits;
-            })
+                return hits;
+            }).catch(error => Promise.reject(error));
     }
 
     incrementPage() {
